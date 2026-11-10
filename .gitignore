@@ -9,3 +9,5 @@ runs/
 *.mov
 .env
 .vscode/
+snapshots/
+detection_report.json

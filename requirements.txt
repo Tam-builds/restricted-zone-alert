@@ -3,3 +3,9 @@ opencv-python
 fastapi
 uvicorn
 requests
+ultralytics
+opencv-python
+fastapi
+uvicorn
+requests
+imageio-ffmpeg
