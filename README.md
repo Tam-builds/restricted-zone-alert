@@ -1,30 +1,33 @@
 # Restricted Zone Alert 🚨
 
-A computer vision project built using Python, YOLO and OpenCV to detect objects in video footage. The project is being developed into a real-time restricted-zone monitoring system that can identify unauthorized entry and generate alerts.
+A computer vision-based restricted-zone monitoring system built using Python, YOLO-World, OpenCV, and FastAPI. It detects people in video footage, checks whether they enter a predefined restricted area, captures intrusion snapshots, and displays detection results through a web dashboard.
 
 ## 🎯 Project Objective
 
-The goal is to build a system that monitors a video feed, detects people, identifies when they enter a predefined restricted area, and captures evidence for security monitoring.
+To develop a video-based monitoring system that identifies people entering a predefined restricted zone and generates visual evidence of intrusion events.
 
-## 🚀 Current Progress
+## 🚀 Implemented Features
 
-- [x] Python environment setup
-- [x] YOLO object detection setup
-- [x] Video-based object detection
-- [x] Bounding box and confidence score visualization
-- [x] Detection output video generation
-- [ ] YOLO-World integration
-- [ ] Restricted-zone polygon detection
-- [ ] Automatic intrusion snapshots
-- [ ] FastAPI backend
-- [ ] Web dashboard
+- YOLO object detection using Ultralytics
+- YOLO-World integration for person detection
+- Video frame processing using OpenCV
+- Custom restricted-zone polygon definition
+- Person footpoint-based zone checking
+- Visual alerts using bounding-box colors
+- Automatic intrusion snapshot capture
+- Detection statistics and JSON report generation
+- FastAPI backend with REST endpoints
+- Web dashboard displaying detection metrics, processed video, and snapshots
+- Browser-compatible H.264 video playback
 
 ## 🛠️ Technologies Used
 
 - Python
-- YOLO (Ultralytics)
+- YOLO / YOLO-World
 - OpenCV
 - FastAPI
+- Uvicorn
+- FFmpeg (through imageio-ffmpeg)
 - Git and GitHub
 
 ## 📁 Project Structure
@@ -33,73 +36,105 @@ The goal is to build a system that monitors a video feed, detects people, identi
 restricted-zone-alert/
 │
 ├── first_detection.py
+├── restricted_zone.py
+├── server.py
 ├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
 
-Additional files and modules will be added as development progresses.
+Generated files such as videos, snapshots, and detection reports are excluded from GitHub.
 
 ## ⚙️ Installation
 
 Clone the repository:
 
-```bash
+```powershell
 git clone https://github.com/Tam-builds/restricted-zone-alert.git
 cd restricted-zone-alert
 ```
 
-Create a virtual environment:
-
-```bash
-python -m venv venv
-```
-
-Activate it on Windows PowerShell:
+Create and activate a virtual environment:
 
 ```powershell
+python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
 
 Install dependencies:
 
-```bash
+```powershell
 pip install -r requirements.txt
 ```
 
+Place your test video in the project directory using the filename expected by the detection script.
+
 ## ▶️ Running the Project
 
-Place your own test video in the project folder and name it `video1.mp4`.
+### 1. Run object detection
 
-Run:
-
-```bash
+```powershell
 python first_detection.py
 ```
 
-The YOLO model detects objects and saves an annotated output video in the generated `runs/detect/` directory.
+### 2. Run restricted-zone detection
 
-## 🧠 Learning Outcomes
+```powershell
+python restricted_zone.py
+```
 
-- Understanding object detection using YOLO.
-- Working with video frames using OpenCV.
-- Understanding bounding boxes, class labels and confidence scores.
-- Building a foundation for real-time computer vision applications.
+This processes the video, checks detected people against the configured polygon, saves intrusion snapshots, and generates a detection report.
 
-## 🔮 Future Scope
+### 3. Start the FastAPI server
 
-- Detect people using YOLO-World.
-- Define restricted areas using polygon coordinates.
-- Generate alerts when people enter restricted areas.
-- Capture snapshots of intrusion events.
-- Build a FastAPI backend and monitoring dashboard.
+```powershell
+python -m uvicorn server:app --reload
+```
+
+Open the dashboard:
+
+```text
+http://127.0.0.1:8000/dashboard
+```
+
+## 🔗 API Endpoints
+
+| Endpoint | Purpose |
+|---|---|
+| `/` | API welcome message |
+| `/health` | Server health check |
+| `/report` | Detection statistics and snapshot information |
+| `/video` | Processed video |
+| `/snapshots` | Snapshot files |
+| `/dashboard` | Monitoring dashboard |
+
+**Note:** The dashboard requires the generated detection report, snapshots, and browser-compatible processed video. These are generated locally and are not included in the repository.
+
+## 🧠 Key Learning Outcomes
+
+- Understanding object detection using YOLO
+- Working with video frames using OpenCV
+- Understanding bounding boxes and confidence scores
+- Applying polygon-based spatial logic
+- Building a REST API using FastAPI
+- Connecting a backend to a web dashboard
+- Managing project dependencies and version control using Git
+
+## 🔮 Future Improvements
+
+- Live webcam or CCTV stream processing
+- Real-time notifications through email or messaging services
+- Entry/exit event tracking
+- Database integration for storing intrusion history
+- Improved detection accuracy and performance
+- Optional AI-based verification of detected events
 
 ## 👩‍💻 Author
 
-**Tam-builds**
+Tam-builds
 
 GitHub: https://github.com/Tam-builds
 
 ---
 
-*This project is currently under development.*
+**Project status:** Core video-based restricted-zone detection and dashboard implementation completed. Further enhancements are planned.
